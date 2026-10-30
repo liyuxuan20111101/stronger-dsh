@@ -37,7 +37,20 @@
       "metadata": {
         "category": "ui"
       },
-      "versions": []
+      "versions": [
+        {
+          "version": "0.18.1",
+          "publishTimestamp": 1793366847,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/liyuxuan20111101/stronger-dsh.git",
+            "commit": "2f4c7c6bd315c7d89dbb5d9f4658f0c14e2caa87"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.3 <0.3.0-0"
+          }
+        }
+      ]
     }
   ]
 }
