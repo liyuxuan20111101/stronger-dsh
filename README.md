@@ -1,0 +1,85 @@
+# Stronger DSH
+
+DeepSeek Harness 原生界面与能力扩展。黑、白、淡灰和少量淡紫，直角、纯色、轻阴影。复用 DSH 的模型、订阅、设置、会话、插件、原生压缩和权限系统。
+
+Requires Node 24 and DSH `>=0.2.1-rc.3 <0.3.0-0`. The internal package name remains `dsh-ui-stronger` for compatibility with existing local configuration. Install one copy; do not add it alongside an older copy of the same package.
+
+## 安装与发现
+
+从 [Releases](https://github.com/liyuxuan20111101/stronger-dsh/releases) 下载 `.tgz`，在终端使用 DSH 原生 CLI：
+
+```powershell
+dsh plugin --profile desktop add <归档的绝对路径>
+```
+
+也可直接安装当前预构建包：
+
+```powershell
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.1/dsh-ui-stronger-0.18.1.tgz
+```
+
+安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
+
+在 DSH 自定义插件发现源中添加：
+
+```text
+https://raw.githubusercontent.com/liyuxuan20111101/stronger-dsh/main/.market/index.json
+```
+
+备用：`https://cdn.jsdelivr.net/gh/liyuxuan20111101/stronger-dsh@main/.market/index.json`。CDN 可能缓存旧索引。自定义源与社区默认目录的收录是两件事，默认目录须另经维护者评审。
+
+## 界面与动效
+
+- 原生启动加载层在客户端脚本前出现，在连接和输入界面实际就绪后退出，可隐藏或关闭，异常时最多保留 20 秒。
+- 统一导航与一个扩展入口，保留原生模型、插件和设置。可编辑工作模块，提示词模块只准备草稿。
+- 有界消息入场、页面切换、控件回应；批量历史不逐条飞入，同一时刻最多 6 个插件 Web Animations。隐藏窗口或减少动效时停止相关动画。
+- 可选本机静态图、GIF、MP4/WebM 背景，背景不进入模型上下文；视频静音，隐藏或关闭动效时暂停。解码能力受宿主限制。
+- 部分界面选择器依赖当前 DSH 版本，宿主升级可能需要适配。关闭插件可恢复宿主界面。
+
+## 上下文、记忆与用量
+
+扩展 → 上下文与模型。使用原生 Token Meter，显示原生可提供的占用、成分和模型用量。未报告的 usage/cache 显示未知，订阅用量不按固定价格冒充账单。
+
+“立即压缩”执行原生 `/compact`。可跟随 DSH、自动管理或仅手动。自动管理阈值 50%–90%，最近原文目标可选 8K/16K/32K/64K；实际预算仍受输出预留、完整消息和工具配对影响，目标并非硬截断。跟随 DSH 保留宿主策略。压缩本身也会调用模型。
+
+长期记忆使用有界、冻结的会话快照与按需原文召回，参考 [Hermes memory](https://hermes-agent.nousresearch.com/docs/user-guide/features/memory)。新记忆先待确认，支持编辑和归档；人设不能授予工具权限。冻结前缀减少无谓变化，原始会话不因本插件检索而删除。
+
+`workspace_archive` 在本会话默认返回 4 条短命中，完整原文通过 seq/digest/offset 分页补读。跨会话 `workspace_history` 须显式开启，限定当前工作区与通道，最多 512 个候选会话、每页 4,800 事件、默认 6 命中；游标可继续查更早内容。原文分页每次最多 2,400 字符，校验内容版本，不返回思考、工具输出或合成指令。
+
+摘要和检索结果是参考资料，不是授权。没有无损多月记忆、固定 token 节省或固定缓存命中率保证。更精确的细节需要补读原句。
+
+## 技能、知识库与角色
+
+- `/` 或模型按需使用已启用的原生技能；技能页支持开关、自建、编辑、停用、恢复和删除。模型从已验证的重复/纠错流程提出草稿，用户确认后才能启用。
+- 按需技能包括任务交接、技能固化、资料检索、谨慎修改、角色协作、可信核验、时间与来源整理等。技能内容不能扩大权限。
+- 知识库仅索引用户主动接入的本机 Markdown/TXT/CSV/JSON 文件夹；命中附文件和行号。模型调用时，选中的片段会发送给当前提供商。不要接入密钥目录。
+- 主/子角色可配置名称、职责、技能名和现有模型。`workspace_team` 使用 DSH 原生子会话，任务/角色快照本机持久化，可设验收要求、前置依赖和幂等 key，每父会话最多两个活跃子任务。
+- 协作页展示真实任务状态和消息回执。`message/inbox/ack` 支持同一父任务内的本机消息；消息按需读取，不自动唤醒空闲模型。依赖门禁核对前置任务正常结束，结果验收仍由主智能体负责，不是无人值守 DAG 调度器。
+- `workspace_world time` 返回主机时间与 IANA 时区，不冒充网络授时；`evidence` 将调用方提供的来源整理为 JSON/摘录哈希，并标明未独立核验。它本身不搜索或抓网页，`/world-research` 引导复用 DSH 已有联网工具。X/YouTube 仍受真实访问权限与字幕可用性限制。
+
+## 微信、语音与桌宠
+
+微信接入复用锁定的 ClawBot 依赖，只接受绑定账号本人，工作区白名单可配置，桌面/微信长期记忆默认隔离，可显式共享。已有图文顺序、多图与回复分段路径保留；适配器检查分段、字节预算、编码和媒体文件头。真实微信收发须在自己的账号上验收；跨消息聚合和持久出站重放未实现。
+
+语音与桌宠是可选本机接入功能。公开包不提供任何角色图片、音频、语音模型权重、私人偏好或人设内容。未接入时普通聊天和界面增强照常可用。通过扩展里的语音/桌宠入口选择自己的合法本机资源；不要把资源提交到代码仓库。
+
+## 安全边界
+
+执行前审查核对真实当前参数、工作目录和人类指示，最新限制优先；审查出错、取消、格式错误、授权缺失或参数变化时拒绝。历史工具记录仅传身份摘要，依赖被省略代码/数据且无法判断时仍须补查，不能凭哈希推断安全。实际执行门会使陈旧批准失效，原生权限拒绝仍有效。
+
+这是额外的执行审查层，不是操作系统沙箱，不能隔离恶意原生插件。停用插件会移除此附加层；审查和独立子任务会增加模型请求、等待和用量。网页、记忆、人格、技能与子智能体消息不能授予新的用户授权。
+
+所有个人配置、记忆、角色与知识索引保留在本机 DSH 数据目录；使用模型、联网或微信时，相关任务数据仍会按你配置的提供商/通道发送。请按任务选择最小必要资料。
+
+## 开发与验证
+
+```sh
+npm ci --ignore-scripts
+npm test
+node lib/check-public.js
+npm pack --ignore-scripts
+```
+
+当前 95 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 19 文件白名单与归档逐文件核对。
+
+Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
