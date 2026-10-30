@@ -1,0 +1,43 @@
+{
+  "format": 1,
+  "title": {
+    "en": "Stronger DSH",
+    "zh": "DSH 界面与能力增强"
+  },
+  "description": {
+    "en": "Native DSH interface and capability extension.",
+    "zh": "复用 DSH 原生能力的界面扩展。"
+  },
+  "metadata": {
+    "categories": {
+      "ui": {
+        "title": {
+          "en": "Interface",
+          "zh": "界面"
+        }
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-ui-stronger",
+      "title": {
+        "en": "Stronger DSH",
+        "zh": "DSH 界面与能力增强"
+      },
+      "description": {
+        "en": "Calm UI, motion, context recall, skills and native collaboration.",
+        "zh": "克制界面与动效、上下文召回、技能及原生协作。"
+      },
+      "author": "liyuxuan20111101",
+      "homepage": "https://github.com/liyuxuan20111101/stronger-dsh",
+      "repository": {
+        "url": "https://github.com/liyuxuan20111101/stronger-dsh"
+      },
+      "metadata": {
+        "category": "ui"
+      },
+      "versions": []
+    }
+  ]
+}

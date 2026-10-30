@@ -1,0 +1,74 @@
+{
+  "name": "dsh-ui-stronger",
+  "version": "0.18.1",
+  "description": "DeepSeek Harness 界面、动效、技能、知识库、人设与执行前安全审查增强。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-brand-official",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-settings",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-workspace"
+      ]
+    }
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "check": "node --check lib/index.js && node --check lib/client.js",
+    "prepublishOnly": "node lib/check-public.js"
+  },
+  "engines": {
+    "node": ">=24",
+    "dsh": ">=0.2.1-rc.3 <0.3.0-0"
+  },
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "ui",
+    "theme",
+    "animation",
+    "voice",
+    "pet"
+  ],
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liyuxuan20111101/stronger-dsh.git"
+  },
+  "homepage": "https://github.com/liyuxuan20111101/stronger-dsh#readme",
+  "bugs": {
+    "url": "https://github.com/liyuxuan20111101/stronger-dsh/issues"
+  },
+  "devDependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@deepseek-ai/cordis": "~4.0.5"
+  },
+  "dependencies": {
+    "dsh-plugin-clawbot": "0.6.0",
+    "qrcode": "1.5.4"
+  }
+}

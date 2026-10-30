@@ -1,0 +1,33 @@
+name: Publish audited release
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [.github/workflows/release.yml]
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: node lib/check-public.js
+      - name: Pack and audit
+        run: |
+          mkdir -p dist
+          npm pack --ignore-scripts --pack-destination dist
+          version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
+          node lib/check-public.js --archive "dist/dsh-ui-stronger-$version.tgz"
+          cd dist
+          sha256sum "dsh-ui-stronger-$version.tgz" > "dsh-ui-stronger-$version.sha256"
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
+          gh release create "v$version" "dist/dsh-ui-stronger-$version.tgz" "dist/dsh-ui-stronger-$version.sha256" --target "$GITHUB_SHA" --title "Stronger DSH $version" --notes "Native DSH workspace, motion, model-callable skills, local knowledge/persona/memory, and fail-closed execution review. Public source contains no private character, voice model, audio or user data. See README for discovery source and safety limitations."
