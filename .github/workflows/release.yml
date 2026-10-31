@@ -1,3 +1,4 @@
+# Release 0.18.2: Windows UIA computer-use with observation-bound actions.
 name: Publish audited release
 on:
   workflow_dispatch:

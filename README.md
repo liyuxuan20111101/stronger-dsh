@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.1/dsh-ui-stronger-0.18.1.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.2/dsh-ui-stronger-0.18.2.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -83,3 +83,7 @@ npm pack --ignore-scripts
 当前 95 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 19 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
+
+## Windows 电脑操作
+
+模型和用户可调用 `/computer-use`。通过 Windows UI Automation 读取最多400个非密码控件，操作绑定当前会话30秒内观察；支持标准按钮 Invoke 与文本框 ValuePattern。所有调用走执行前审查，本机桌面以外通道拒绝。修改后重新观察核验；超时或失效不自动重试。可在技能管理停用。不包含截图视觉、坐标点击或虚拟桌面隔离；自绘界面需宿主其他工具。参考微软 UFO 的 UIA 优先与观察/执行/验证分层思路，未复制其源码。
