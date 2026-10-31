@@ -1,4 +1,4 @@
-# Release 0.18.8: scoped natural conversation and configurable expression.
+# Release 0.18.9: bounded interaction and surface motion.
 name: Publish audited release
 on:
   workflow_dispatch:

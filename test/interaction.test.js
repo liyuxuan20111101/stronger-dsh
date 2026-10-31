@@ -53,7 +53,7 @@ test('surface dismissal waits for motion, respects unsaved work and is immediate
  const run=(motion,canClose)=>{let timer,closed=0;const react={...React,useRef:v=>({current:v}),useState:v=>[v,()=>{}],useEffect(){}};const win={__ModuleLoader__:{load:x=>x.factory(id=>id==='react'?react:id==='react-dom'?{createPortal:node=>node}:{})},matchMedia:()=>({matches:false})};
  vm.runInNewContext(original.replace("return {name:'dsh-ui-stronger',inject:","window.Surface=FocusSurface;return {name:'dsh-ui-stronger',inject:"),{window:win,document:{body:{},documentElement:{hasAttribute:()=>motion}},setTimeout:(fn,ms)=>{timer={fn,ms};return 1;},clearTimeout(){}});
  const surface=win.Surface({label:'Test',children:null,onClose:()=>closed++,canClose});surface.props.onPointerDown({target:1,currentTarget:1});return {get closed(){return closed;},get timer(){return timer;}};};
- const animated=run(true,true);assert.equal(animated.closed,0);assert.equal(animated.timer.ms,145);animated.timer.fn();assert.equal(animated.closed,1);assert.equal(run(false,true).closed,1);const dirty=run(true,false);assert.equal(dirty.closed,0);assert.equal(dirty.timer,undefined);
+ const animated=run(true,true);assert.equal(animated.closed,0);assert.equal(animated.timer.ms,185);animated.timer.fn();assert.equal(animated.closed,1);assert.equal(run(false,true).closed,1);const dirty=run(true,false);assert.equal(dirty.closed,0);assert.equal(dirty.timer,undefined);
 });
 
 test('native tab motion follows one gesture without observing selection attributes, and unload cancels its frame',()=>{

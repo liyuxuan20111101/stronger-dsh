@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.8/dsh-ui-stronger-0.18.8.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.9/dsh-ui-stronger-0.18.9.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 111 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 113 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -116,3 +116,12 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 扩展 → 人设 → 表达方式：自然表达（默认）、精炼直接、跟随模型。最后一个选项完全不注入本插件的表达提示。选择只改变后续表达引导，不修改用户人设或记忆内容；子智能体与隔离来源不注入此风格提示，JSON/代码/训练协议仍优先。
 
 不会增加一次润色模型调用，不改写最终消息、删减引用或模拟真人经历；提示在同一偏好和通道下稳定，不逐轮增加随机规则。111项结构、持久化、隔离及既有功能回归通过，另在隔离DSH中验证三种选项保存。尚未做真实模型的盲评或跨模型量化比较；实际语气改善取决于模型和当前任务，不能保证消除所有模板化表达。
+
+## 0.18.9：交互动效
+
+- 扩展面板270ms短距离侧移入场，遮罩180ms淡入；搜索面板220ms轻移入场。
+- 扩展页230ms内容切换，退出180ms，按钮按下/悬停与开关反馈更明确。
+- 新内容230ms入场，错峰延迟最多60ms；Web Animations并发仍最多6个，批量历史超过12候选时跳过，流式同节点不反复重播。
+- 后台和减少动态效果时暂停/取消；动效总开关关闭后新增动画不生效。退出期间保留遮罩以避免点击穿透。启动加载仍在真实就绪后退出，不添加人为展示等待。
+
+113项回归通过；隔离DSH中核对真实计算样式及开关停止动画，未测量GPU帧率或进行跨设备性能基准。配色、功能布局、人设和模型设置不因本轮动效更新改变。
