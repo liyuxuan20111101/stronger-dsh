@@ -26,8 +26,8 @@
         "zh": "DSH 界面与能力增强"
       },
       "description": {
-        "en": "Calm UI, motion, context recall, skills and native collaboration.",
-        "zh": "克制界面与动效、上下文召回、技能及原生协作。"
+        "en": "Calm UI, motion, context recall, skills, collaboration and reviewed Windows UIA actions.",
+        "zh": "克制界面与动效、上下文召回、技能、原生协作及审查后的Windows控件操作。"
       },
       "author": "liyuxuan20111101",
       "homepage": "https://github.com/liyuxuan20111101/stronger-dsh",
@@ -39,12 +39,12 @@
       },
       "versions": [
         {
-          "version": "0.18.1",
-          "publishTimestamp": 1793366847,
+          "version": "0.18.2",
+          "publishTimestamp": 1793420888,
           "source": {
             "type": "git",
             "url": "https://github.com/liyuxuan20111101/stronger-dsh.git",
-            "commit": "2f4c7c6bd315c7d89dbb5d9f4658f0c14e2caa87"
+            "commit": "7e42269b59b5ee9eb9e68c18d1986577aa300abd"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.3 <0.3.0-0"
