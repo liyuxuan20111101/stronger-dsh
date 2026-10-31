@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.7/dsh-ui-stronger-0.18.7.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.8/dsh-ui-stronger-0.18.8.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 109 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 111 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -96,7 +96,7 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - ClawBot 并发创建会话串行化，避免归属映射丢失；空消息校验与输入中提示更完善。已有多图/多段能力保持，图片数量和大小仍服从宿主限制。
 - 更自然的对话承接与微信短段落策略，尊重用户人设，不编造经历、记忆、图像内容或完成状态。
 
-公开包只提供本机技能库接口，不附用户导入的技能资源、训练记录、语音、桌宠、人设或知识资料。109 项回归通过；实际模型语气、微信收发和长期记忆效果仍取决于所用模型与宿主，不能将本机合成测试视为这些效果的保证。
+公开包只提供本机技能库接口，不附用户导入的技能资源、训练记录、语音、桌宠、人设或知识资料。105 项回归通过；实际模型语气、微信收发和长期记忆效果仍取决于所用模型与宿主，不能将本机合成测试视为这些效果的保证。
 
 ## 0.18.7 修复
 
@@ -106,3 +106,13 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 技能库加载失败时显示原因。
 
 109 项回归通过。此版没有扩展 Windows 系统托盘菜单；当前 DSH 宿主未向普通插件开放相应接口。
+
+## 0.18.8：减少模板化表达
+
+所谓“AI味”常混合了固定开场/总结、无依据的迎合、把闲聊写成工作报告、泛泛的共情及生硬的人设表演。它不是一个可用词表可靠检测的单一指标。[关于模型迎合倾向的研究](https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models)指出，偏好训练可能鼓励迎合用户观点；本插件不能改变基础模型权重。
+
+插件侧发现的具体诱因是连续性提示一直要求报告动作、依据、验证和缺口，容易把本应按任务需要使用的汇报习惯扩大到普通聊天。现已明确区分闲聊和实际操作的汇报需求，保留事实和安全边界。
+
+扩展 → 人设 → 表达方式：自然表达（默认）、精炼直接、跟随模型。最后一个选项完全不注入本插件的表达提示。选择只改变后续表达引导，不修改用户人设或记忆内容；子智能体与隔离来源不注入此风格提示，JSON/代码/训练协议仍优先。
+
+不会增加一次润色模型调用，不改写最终消息、删减引用或模拟真人经历；提示在同一偏好和通道下稳定，不逐轮增加随机规则。111项结构、持久化、隔离及既有功能回归通过，另在隔离DSH中验证三种选项保存。尚未做真实模型的盲评或跨模型量化比较；实际语气改善取决于模型和当前任务，不能保证消除所有模板化表达。
