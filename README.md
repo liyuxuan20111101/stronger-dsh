@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.6/dsh-ui-stronger-0.18.6.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.7/dsh-ui-stronger-0.18.7.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 105 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 109 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -96,4 +96,13 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - ClawBot 并发创建会话串行化，避免归属映射丢失；空消息校验与输入中提示更完善。已有多图/多段能力保持，图片数量和大小仍服从宿主限制。
 - 更自然的对话承接与微信短段落策略，尊重用户人设，不编造经历、记忆、图像内容或完成状态。
 
-公开包只提供本机技能库接口，不附用户导入的技能资源、训练记录、语音、桌宠、人设或知识资料。105 项回归通过；实际模型语气、微信收发和长期记忆效果仍取决于所用模型与宿主，不能将本机合成测试视为这些效果的保证。
+公开包只提供本机技能库接口，不附用户导入的技能资源、训练记录、语音、桌宠、人设或知识资料。109 项回归通过；实际模型语气、微信收发和长期记忆效果仍取决于所用模型与宿主，不能将本机合成测试视为这些效果的保证。
+
+## 0.18.7 修复
+
+- 兼容 Windows 编辑器保存的带 BOM 技能索引和技能说明。
+- 微信连接停用或重新配置后，丢弃旧连接的迟到初始化与会话创建结果。
+- 微信面板定时刷新状态，后台跳过、请求去重，关闭面板后不回写旧结果。
+- 技能库加载失败时显示原因。
+
+109 项回归通过。此版没有扩展 Windows 系统托盘菜单；当前 DSH 宿主未向普通插件开放相应接口。

@@ -1,4 +1,4 @@
-# Release 0.18.6: soft facets, actual boot readiness, local skills and ClawBot reliability.
+# Release 0.18.7: local skill BOM and WeChat lifecycle fixes.
 name: Publish audited release
 on:
   workflow_dispatch:
