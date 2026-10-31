@@ -1,6 +1,6 @@
 # Stronger DSH
 
-DeepSeek Harness 原生界面与能力扩展。黑、白、淡灰和少量淡紫，直角、纯色、轻阴影。复用 DSH 的模型、订阅、设置、会话、插件、原生压缩和权限系统。
+DeepSeek Harness 原生界面与能力扩展。黑、白、淡灰和少量淡紫，轻圆角、纯色、轻阴影。复用 DSH 的模型、订阅、设置、会话、插件、原生压缩和权限系统。
 
 Requires Node 24 and DSH `>=0.2.1-rc.3 <0.3.0-0`. The internal package name remains `dsh-ui-stronger` for compatibility with existing local configuration. Install one copy; do not add it alongside an older copy of the same package.
 
@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.2/dsh-ui-stronger-0.18.2.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.6/dsh-ui-stronger-0.18.6.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,10 +80,20 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 95 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 19 文件白名单与归档逐文件核对。
+当前 105 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
 ## Windows 电脑操作
 
 模型和用户可调用 `/computer-use`。通过 Windows UI Automation 读取最多400个非密码控件，操作绑定当前会话30秒内观察；支持标准按钮 Invoke 与文本框 ValuePattern。所有调用走执行前审查，本机桌面以外通道拒绝。修改后重新观察核验；超时或失效不自动重试。可在技能管理停用。不包含截图视觉、坐标点击或虚拟桌面隔离；自绘界面需宿主其他工具。参考微软 UFO 的 UIA 优先与观察/执行/验证分层思路，未复制其源码。
+
+## 0.18.6 更新
+
+- 6px 控件 / 10px 面板轻圆角；统一折面标志和导航图标，黑白灰与少量淡紫。
+- 启动画面使用更轻的轨道与低对比背景，工作区实际就绪即退出；后台暂停，减少动效时不旋转。
+- 本机技能库接入：在 `DSH_HOME/plugins-data/dsh-ui-stronger/skill-library/` 下放置 `index.json` 与各技能资源。索引格式为 `{"version":1,"skills":[{"name":"my-skill","description":"适用场景"}]}`，每项对应同名目录内的 `SKILL.md`。完整脚本与引用文件由用户自行存放。正常重启后，技能可在现有管理页启停，并由用户或模型按需调用；正文不常驻上下文。技能仍受原有执行审查限制。
+- ClawBot 并发创建会话串行化，避免归属映射丢失；空消息校验与输入中提示更完善。已有多图/多段能力保持，图片数量和大小仍服从宿主限制。
+- 更自然的对话承接与微信短段落策略，尊重用户人设，不编造经历、记忆、图像内容或完成状态。
+
+公开包只提供本机技能库接口，不附用户导入的技能资源、训练记录、语音、桌宠、人设或知识资料。105 项回归通过；实际模型语气、微信收发和长期记忆效果仍取决于所用模型与宿主，不能将本机合成测试视为这些效果的保证。

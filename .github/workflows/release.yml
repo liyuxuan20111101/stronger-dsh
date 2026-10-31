@@ -1,4 +1,4 @@
-# Release 0.18.2: Windows UIA computer-use with observation-bound actions.
+# Release 0.18.6: soft facets, actual boot readiness, local skills and ClawBot reliability.
 name: Publish audited release
 on:
   workflow_dispatch:
@@ -31,4 +31,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
-          gh release create "v$version" "dist/dsh-ui-stronger-$version.tgz" "dist/dsh-ui-stronger-$version.sha256" --target "$GITHUB_SHA" --title "Stronger DSH $version" --notes "Native DSH workspace, motion, model-callable skills, local knowledge/persona/memory, and fail-closed execution review. Public source contains no private character, voice model, audio or user data. See README for discovery source and safety limitations."
+          gh release create "v$version" "dist/dsh-ui-stronger-$version.tgz" "dist/dsh-ui-stronger-$version.sha256" --target "$GITHUB_SHA" --title "Stronger DSH $version" --notes "Refined startup motion, soft geometric UI, a local skill-library interface, ClawBot session reliability and natural conversation guidance. Public source contains no private character, voice model, audio or user data. See README for discovery source and safety limitations."
