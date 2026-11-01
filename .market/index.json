@@ -27,7 +27,7 @@
       },
       "description": {
         "en": "Refined geometric UI and startup, local skill library, context recall and ClawBot reliability.",
-        "zh": "轻圆角几何界面与启动动效、本机技能库、上下文召回与微信桥可靠性增强。"
+        "zh": "黑白灰淡紫界面与动效、本机技能、上下文召回、智能体协作及插件兼容性增强。"
       },
       "author": "liyuxuan20111101",
       "homepage": "https://github.com/liyuxuan20111101/stronger-dsh",
@@ -39,12 +39,12 @@
       },
       "versions": [
         {
-          "version": "0.18.10",
-          "publishTimestamp": 1793504787,
+          "version": "0.18.11",
+          "publishTimestamp": 1793505956,
           "source": {
             "type": "git",
             "url": "https://github.com/liyuxuan20111101/stronger-dsh.git",
-            "commit": "fc30a122840a9af1acdd147bb2dcd6eba139b66b"
+            "commit": "9cf54bd67375d8d890c3a5b4f5d94b22a83cfb2f"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.3 <0.3.0-0"
