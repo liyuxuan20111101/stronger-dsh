@@ -1,4 +1,4 @@
-# Release 0.18.11: plugin interoperability and safe channel diagnostics.
+# Release 0.18.12: plugin interoperability with safe adapter reload fallback.
 name: Publish audited release
 on:
   workflow_dispatch:

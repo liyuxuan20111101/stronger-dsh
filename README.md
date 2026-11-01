@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.11/dsh-ui-stronger-0.18.11.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.12/dsh-ui-stronger-0.18.12.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 119 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 120 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -146,3 +146,7 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 `Illegal API invocation from an unapproved channel`表示上游拒绝当前接入渠道。仅凭此错误不能判定具体适配器、账号状态或请求片段，缩短上下文及反复重发通常不能解决。请在DSH原生模型设置核对供应商及接入方式，查阅适配器支持范围，或改用允许当前客户端接入的API。已有[渠道插件上游报告](https://github.com/magpie-community/plugins/issues/279)记录同类拒绝，但不证明你的请求具有完全相同的触发条件。
 
 插件不伪装官方客户端、不隐藏客户端身份、不绕过上游访问限制。多插件同时调整同一个模型路由、上下文策略或主界面仍可能冲突，建议只保留一个策略来源。
+
+## 0.18.12：目录重载兜底
+
+供应商插件重载时若目录读取同步抛错，超时兜底也能正常拒绝并返回固定提示，不产生未捕获定时器异常、不回显适配器原始敏感错误；同一次调用只启动一次兜底。新增专项回归，完整120项通过。0.18.11已发行记录保留，当前推荐安装0.18.12。

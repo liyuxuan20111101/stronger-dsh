@@ -55,3 +55,10 @@ test('follow-host compression preserves the native receiver and unload does not 
  const captured=engine.compactIfNeeded,later=function(...args){return captured.apply(this,args);};engine.compactIfNeeded=later;cleanup();
  service.config.context={auto:false};assert.equal(engine.compactIfNeeded({},'pressure'),'native');assert.equal(engine.compactIfNeeded,later);assert.equal(seen,engine);
 });
+
+test('synchronous adapter failure during native timeout rejects without an uncaught timer error',async()=>{
+ let cleanup;const service={modelCatalog:()=>new Promise(()=>{})};
+ const scope={get:k=>({sessionController:service,llm:{listProviders(){throw Error('adapter restarting');}},agentDefaultModel:{currentSelection:()=>({})}}[k]),effect:fn=>{cleanup=fn();},on(){}};
+ wireModelCatalog({inject:(_keys,fn)=>fn(scope)},{timeout:10,nativeTimeout:2});
+ await assert.rejects(service.modelCatalog(),/模型目录暂不可用/);cleanup();
+});
