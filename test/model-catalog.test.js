@@ -25,9 +25,9 @@ test('late old generation cannot overwrite a fresh provider catalog or default',
  assert.equal((await catalog.load()).groups[0].id,'new');catalog.dispose();
 });
 test('native catalog adapter restores the original on unload and invalidates when configuration changes',async()=>{
- const f=fixture(),original=()=>Promise.resolve({native:true}),service={modelCatalog:original},cleanups=[],events=new Map();
+ const f=fixture(),original=()=>new Promise(()=>{}),service={modelCatalog:original},cleanups=[],events=new Map();
  const scope={get:k=>k==='sessionController'?service:f.ctx.get(k),effect:fn=>{cleanups.push(fn());},on:(name,fn)=>events.set(name,fn)};
- wireModelCatalog({inject:(_services,fn)=>fn(scope)},{timeout:15});assert.notEqual(service.modelCatalog,original);
+ wireModelCatalog({inject:(_services,fn)=>fn(scope)},{timeout:15,nativeTimeout:1});assert.notEqual(service.modelCatalog,original);
  assert.equal((await service.modelCatalog()).groups.length,1);f.recover();events.get('llm/adapters-updated')();assert.equal((await service.modelCatalog()).groups.length,2);
  for(const cleanup of cleanups.reverse())cleanup();assert.equal(service.modelCatalog,original);
 });

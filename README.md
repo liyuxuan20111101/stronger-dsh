@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.10/dsh-ui-stronger-0.18.10.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.11/dsh-ui-stronger-0.18.11.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 114 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 119 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -131,3 +131,18 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 选择菜单沿用界面的灰白/深灰底色、淡紫选中态、细边框与小圆角；选项留白及分组更清晰。保留原生键盘、表单与辅助技术语义，不增加重复入口。支持可定制select的内核使用主题弹层；旧内核保留原生菜单，不保证消除系统高亮色。多选和列表框不改变。
 
 修复展开原生选择列表时 Esc 同时关闭外层扩展面板的问题。114项回归通过；菜单样式通过隔离DSH实测。纯样式增强依据[Chrome可定制选择控件](https://developer.chrome.com/blog/a-customizable-select)。
+
+## 0.18.11：插件互操作与渠道错误说明
+
+- 优先返回原生模型目录，保留其他插件附加字段、参数及接收对象；原生目录超时或失败才使用有界适配器发现兜底。安装时不主动刷新目录。
+- 模型目录与上下文压缩包装器卸载后透明转发，避免破坏后装插件保留的调用链；压缩跟随宿主且未配置路由时不再创建配置代理。
+- 通用控件、ARIA弹层和选择菜单样式限制在本插件面板内；保留特定宿主布局样式与整体主题，减少对其他插件自有控件的强制覆盖。
+- 当前原生回合结束记录含11128渠道拒绝时，过程面板展示固定说明。不会回显原始报错、密钥或请求体，不改写模型请求或客户端身份，不自动重试渠道拒绝。
+
+119项回归通过；隔离DSH检查模型目录、原生供应商设置与菜单。另用合成外部插件样式验证其字体、圆角、菜单阴影和原生选择框保持独立。这不表示所有第三方插件或实际供应商渠道均已验收。原生上游错误仍在DSH会话记录中保留，过程说明不替代其原始证据。
+
+### HTTP 400 / 11128
+
+`Illegal API invocation from an unapproved channel`表示上游拒绝当前接入渠道。仅凭此错误不能判定具体适配器、账号状态或请求片段，缩短上下文及反复重发通常不能解决。请在DSH原生模型设置核对供应商及接入方式，查阅适配器支持范围，或改用允许当前客户端接入的API。已有[渠道插件上游报告](https://github.com/magpie-community/plugins/issues/279)记录同类拒绝，但不证明你的请求具有完全相同的触发条件。
+
+插件不伪装官方客户端、不隐藏客户端身份、不绕过上游访问限制。多插件同时调整同一个模型路由、上下文策略或主界面仍可能冲突，建议只保留一个策略来源。

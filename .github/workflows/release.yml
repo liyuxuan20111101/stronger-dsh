@@ -1,4 +1,4 @@
-# Release 0.18.10: themed native select menus.
+# Release 0.18.11: plugin interoperability and safe channel diagnostics.
 name: Publish audited release
 on:
   workflow_dispatch:

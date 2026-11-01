@@ -18,7 +18,7 @@ test('native model catalog retries partial failure and bounds stalled transport 
  let state={status:'ready',value:{groups:[],failures:[{id:'offline'}]}},resolveOld,cleanup,reads=0;
  const catalog={generation:0,store:{getSnapshot:()=>state,set:v=>{state=v;}},invalidate(){this.generation++;this.inflight=undefined;state={...state,status:'idle'};},load(){reads++;state={...state,status:'loading'};return new Promise(resolve=>{resolveOld=resolve;});}};
  const original=catalog.load;win.__wireCatalog({inject:(_s,fn)=>fn({get:()=>({catalog}),effect:fn=>{cleanup=fn();}})},{timeout:15});
- await new Promise(r=>setTimeout(r,25));assert.equal(state.status,'error');assert.match(state.error,/超时/);assert.equal(reads,1);assert.equal(catalog.generation,2,'failed ready catalog and timed out transport each invalidate once');
+ assert.equal(reads,0,'installation must not start provider discovery');await assert.rejects(catalog.load(),/超时/);assert.equal(state.status,'error');assert.match(state.error,/超时/);assert.equal(reads,1);assert.equal(catalog.generation,2,'failed ready catalog and timed out transport each invalidate once');
  resolveOld({groups:[{id:'late'}]});await new Promise(r=>setTimeout(r,1));assert.equal(state.status,'error');cleanup();assert.equal(catalog.load,original);
  assert.doesNotMatch(source,/aria-label':'切换当前会话模型'|当前模型与供应商/,'one native composer model selector; no duplicate plugin selector');
 });
