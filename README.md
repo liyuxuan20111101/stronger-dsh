@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.9/dsh-ui-stronger-0.18.9.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.10/dsh-ui-stronger-0.18.10.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 113 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 114 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -125,3 +125,9 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 后台和减少动态效果时暂停/取消；动效总开关关闭后新增动画不生效。退出期间保留遮罩以避免点击穿透。启动加载仍在真实就绪后退出，不添加人为展示等待。
 
 113项回归通过；隔离DSH中核对真实计算样式及开关停止动画，未测量GPU帧率或进行跨设备性能基准。配色、功能布局、人设和模型设置不因本轮动效更新改变。
+
+## 0.18.10：统一选择菜单
+
+选择菜单沿用界面的灰白/深灰底色、淡紫选中态、细边框与小圆角；选项留白及分组更清晰。保留原生键盘、表单与辅助技术语义，不增加重复入口。支持可定制select的内核使用主题弹层；旧内核保留原生菜单，不保证消除系统高亮色。多选和列表框不改变。
+
+修复展开原生选择列表时 Esc 同时关闭外层扩展面板的问题。114项回归通过；菜单样式通过隔离DSH实测。纯样式增强依据[Chrome可定制选择控件](https://developer.chrome.com/blog/a-customizable-select)。

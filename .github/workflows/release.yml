@@ -1,4 +1,4 @@
-# Release 0.18.9: bounded interaction and surface motion.
+# Release 0.18.10: themed native select menus.
 name: Publish audited release
 on:
   workflow_dispatch:
