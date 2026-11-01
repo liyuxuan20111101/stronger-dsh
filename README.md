@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.13/dsh-ui-stronger-0.18.13.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.14/dsh-ui-stronger-0.18.14.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 120 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 125 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
 
@@ -156,3 +156,12 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 统一扩展面板内文字按钮的水平/垂直居中与20px行高；表单标签与控件采用6px间距、统一左边界。说明文字提高到11px并减小字距，长说明和勾选项自然换行。侧栏常用导航采用13px/20px节奏，工作区分组12px，保持原有主题配色、功能及动效。
 
 120项回归通过；隔离DSH实测角色表单、技能页，480px/360px窗口无横向溢出或按钮文字裁切。仅调整本插件面板及特定宿主导航类，不新增功能或覆盖第三方插件通用样式；不声称所有宿主/第三方页面都已逐一验收。
+
+## 0.18.14：ClawBot 原生协作与错误回传
+
+- 微信主会话可调用原生 `workspace_team` 分发任务、并行子智能体与查看状态，同一主任务最多两个并行。未配置子角色时提供通用助手，已有停用角色不会被重新启用。
+- 回复包含子任务运行/完成/失败概况；子任务后续失败可向绑定本人通知。仅关联受信任的原生子会话，工作区越界、其他会话和停用后的事件不回传。
+- 失败时显示阶段、HTTP/错误码、请求编号和可用原因，过滤凭据、私人路径及请求内容。上游未提供的细节不会编造；需要新增权限的审批仍在桌面处理。
+- 修复宿主事件订阅返回空值时 ClawBot 管理器启动不兼容的问题。
+
+125项回归通过，包括真实ClawBot管理器配合模拟微信传输、两个模拟原生子智能体的集成测试。没有通过本次测试发送真实微信消息或调用付费模型；实际微信收发仍需账号侧验收。

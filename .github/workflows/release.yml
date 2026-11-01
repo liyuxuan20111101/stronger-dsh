@@ -1,4 +1,4 @@
-# Release 0.18.13: aligned typography and form rhythm.
+# Release 0.18.14: native ClawBot teams and sanitized failure reports.
 name: Publish audited release
 on:
   workflow_dispatch:
