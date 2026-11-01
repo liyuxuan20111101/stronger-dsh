@@ -39,12 +39,12 @@
       },
       "versions": [
         {
-          "version": "0.18.13",
-          "publishTimestamp": 1793510271,
+          "version": "0.18.14",
+          "publishTimestamp": 1793516522,
           "source": {
             "type": "git",
             "url": "https://github.com/liyuxuan20111101/stronger-dsh.git",
-            "commit": "eb355aecb143a6e4b9ab2056f7854c35fab267c5"
+            "commit": "cf05ac96aa9cf6f07c7ba9cb36d8da5670ea24b4"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.3 <0.3.0-0"
