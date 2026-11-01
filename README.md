@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.12/dsh-ui-stronger-0.18.12.tgz
+dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.13/dsh-ui-stronger-0.18.13.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -150,3 +150,9 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 ## 0.18.12：目录重载兜底
 
 供应商插件重载时若目录读取同步抛错，超时兜底也能正常拒绝并返回固定提示，不产生未捕获定时器异常、不回显适配器原始敏感错误；同一次调用只启动一次兜底。新增专项回归，完整120项通过。0.18.11已发行记录保留，当前推荐安装0.18.12。
+
+## 0.18.13：文字对齐与排版节奏
+
+统一扩展面板内文字按钮的水平/垂直居中与20px行高；表单标签与控件采用6px间距、统一左边界。说明文字提高到11px并减小字距，长说明和勾选项自然换行。侧栏常用导航采用13px/20px节奏，工作区分组12px，保持原有主题配色、功能及动效。
+
+120项回归通过；隔离DSH实测角色表单、技能页，480px/360px窗口无横向溢出或按钮文字裁切。仅调整本插件面板及特定宿主导航类，不新增功能或覆盖第三方插件通用样式；不声称所有宿主/第三方页面都已逐一验收。
