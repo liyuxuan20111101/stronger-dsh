@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';import path from 'node:path';import {tmpdir} from 'node:os';
-import {Workbench,DEFAULT_MODULES,validateModules,normalizedUsage,foldUsage,wireWorkbench,addUsage} from '../lib/workbench.js';
+import {Workbench,DEFAULT_MODULES,validateModules,normalizedUsage,foldUsage,wireWorkbench,addUsage,summarizeUsage} from '../lib/workbench.js';
 import {Workspace} from '../lib/workspace.js';
 const temp=async f=>{const dir=await mkdtemp(path.join(tmpdir(),'workbench-'));try{await f(dir);}finally{await rm(dir,{recursive:true,force:true});}};
 
@@ -19,3 +19,18 @@ test('partial provider usage remains unknown for the unreported side',()=>{const
 test('history search requires opt-in and actual workspace; excludes reasoning, tools and other workspaces',()=>temp(async dir=>{let filters;const engine={filterSessions:async f=>{filters=f;return [{header:{id:'mine'}},{header:{id:'other'}}];},readSession:async id=>({session:{id,cwd:id==='mine'?'/project':'/elsewhere'},inheritedEventCount:0,events:[{seq:0,type:'user/message',data:{source:{kind:'user'},content:[{type:'text',text:'launch policy'}]}},{seq:1,type:'assistant/message',data:{message:{source:{kind:'model'},content:[{type:'reasoning',text:'launch HIDDEN'},{type:'text',text:'launch verified'}]}}},{seq:2,type:'tool/result',data:{content:'launch SECRET'}}]})};const w=new Workbench(dir,{get:k=>k==='sessionQuery'?engine:null});await w.load();await assert.rejects(w.history('launch','/project'));await w.configure({historyEnabled:true});await assert.rejects(w.history('launch',''));const result=await w.history('launch','/project');assert.deepEqual(filters,[{kind:'cwd',values:['/project']}]);assert.equal(result.results.length,2);assert(result.results.every(x=>x.sessionId==='mine'));assert.doesNotMatch(JSON.stringify(result),/HIDDEN|SECRET/);await w.dispose();}));
 test('Hermes-style concise memory snapshots stay stable until explicit refresh; originals remain retrievable',()=>temp(async dir=>{const w=new Workspace(dir);await w.load();await w.propose('memory',{title:'Style',content:'Use short answers'},{human:true});const before=w.snapshotFor('one');await w.propose('memory',{title:'Language',content:'Use Chinese'},{human:true});assert.deepEqual(w.snapshotFor('one'),before);assert.equal(w.snapshotFor('two').memories.length,2);w.clearSnapshot('one');assert.equal(w.snapshotFor('one').memories.length,2);for(let i=0;i<12;i++)await w.propose('memory',{title:'Item '+i,content:('Policy '+i+' ').repeat(80)},{human:true});assert(w.snapshotFor('three').memoryBudget.used<=3600);assert(w.recall('Policy').length>0);await w.dispose();}));
 test('corrupt workbench state is preserved and cannot be overwritten by configuration',()=>temp(async dir=>{await writeFile(path.join(dir,'workbench.json'),'{broken');const w=new Workbench(dir,{get:()=>null});await assert.rejects(w.load());await assert.rejects(w.configure({modules:[]}));assert.equal(await readFile(path.join(dir,'workbench.json'),'utf8'),'{broken');}));
+
+
+test('usage summaries preserve authoritative totals, partial reports and legacy rows without counting cache twice',()=>{
+ const rows=foldUsage([
+  {seq:1,type:'assistant/message',data:{usage:{inputTokens:100,outputTokens:20,cacheReadTokens:80}}},
+  {seq:2,type:'assistant/message',data:{usage:{totalTokens:55}}},
+  {seq:3,type:'assistant/message',data:{usage:{outputTokens:7}}},
+  {seq:4,type:'assistant/message',data:{}}
+ ]);const s=summarizeUsage(rows);assert.equal(s.total,262);assert.equal(s.requests,4);assert.equal(s.unknownRequests,2);assert.equal(s.cacheRead,80);assert.equal(s.complete,false);assert.equal(s.inputSamples,1);assert.equal(s.outputSamples,2);
+ const legacy={requests:2,reported:2,input:40,output:6,inputSamples:2,outputSamples:2};assert.equal(summarizeUsage([legacy]).total,46);addUsage(legacy,normalizedUsage({totalTokens:11}));assert.equal(summarizeUsage([legacy]).total,57);assert.equal(summarizeUsage([legacy]).complete,true);assert.equal(summarizeUsage([]).available,false);
+});
+test('session token totals stay scoped to one conversation and exclude inherited messages',()=>{
+ const sessions={one:{inheritedEventCount:2,snapshotEvents:()=>[{seq:1,type:'assistant/message',data:{usage:{inputTokens:900,outputTokens:99}}},{seq:2,type:'assistant/message',data:{usage:{inputTokens:10,outputTokens:3}}}]},two:{snapshotEvents:()=>[{seq:1,type:'assistant/message',data:{usage:{totalTokens:77}}}]}};
+ const w=new Workbench('/unused',{get:k=>k==='sessions'?{get:id=>sessions[id]}:null});assert.equal(w.sessionUsage('one').sessionTotals.total,13);assert.equal(w.sessionUsage('two').sessionTotals.total,77);assert.equal(w.sessionUsage('missing').available,false);assert.throws(()=>w.sessionUsage(null));
+});

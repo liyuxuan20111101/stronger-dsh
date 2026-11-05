@@ -30,9 +30,9 @@
         "zh": "黑白灰淡紫界面与动效、本机技能、上下文召回、智能体协作及插件兼容性增强。"
       },
       "author": "liyuxuan20111101",
-      "homepage": "https://github.com/liyuxuan20111101/stronger-dsh",
+      "homepage": "https://github.com/nothurry/stronger-dsh",
       "repository": {
-        "url": "https://github.com/liyuxuan20111101/stronger-dsh"
+        "url": "https://github.com/nothurry/stronger-dsh"
       },
       "metadata": {
         "category": "ui"
@@ -43,7 +43,7 @@
           "publishTimestamp": 1793516522,
           "source": {
             "type": "git",
-            "url": "https://github.com/liyuxuan20111101/stronger-dsh.git",
+            "url": "https://github.com/nothurry/stronger-dsh.git",
             "commit": "cf05ac96aa9cf6f07c7ba9cb36d8da5670ea24b4"
           },
           "engines": {

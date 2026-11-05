@@ -6,7 +6,7 @@ Requires Node 24 and DSH `>=0.2.1-rc.3 <0.3.0-0`. The internal package name rema
 
 ## 安装与发现
 
-从 [Releases](https://github.com/liyuxuan20111101/stronger-dsh/releases) 下载 `.tgz`，在终端使用 DSH 原生 CLI：
+从 [Releases](https://github.com/nothurry/stronger-dsh/releases) 下载 `.tgz`，在终端使用 DSH 原生 CLI：
 
 ```powershell
 dsh plugin --profile desktop add <归档的绝对路径>
@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-dsh/releases/download/v0.18.14/dsh-ui-stronger-0.18.14.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.15/dsh-ui-stronger-0.18.15.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -23,10 +23,10 @@ dsh plugin --profile desktop add https://github.com/liyuxuan20111101/stronger-ds
 在 DSH 自定义插件发现源中添加：
 
 ```text
-https://raw.githubusercontent.com/liyuxuan20111101/stronger-dsh/main/.market/index.json
+https://raw.githubusercontent.com/nothurry/stronger-dsh/main/.market/index.json
 ```
 
-备用：`https://cdn.jsdelivr.net/gh/liyuxuan20111101/stronger-dsh@main/.market/index.json`。CDN 可能缓存旧索引。自定义源与社区默认目录的收录是两件事，默认目录须另经维护者评审。
+备用：`https://cdn.jsdelivr.net/gh/nothurry/stronger-dsh@main/.market/index.json`。CDN 可能缓存旧索引。自定义源与社区默认目录的收录是两件事，默认目录须另经维护者评审。
 
 ## 界面与动效
 
@@ -80,9 +80,9 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 125 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 127 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
-Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/liyuxuan20111101/stronger-dsh/issues).
+Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/nothurry/stronger-dsh/issues).
 
 ## Windows 电脑操作
 
@@ -165,3 +165,13 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 修复宿主事件订阅返回空值时 ClawBot 管理器启动不兼容的问题。
 
 125项回归通过，包括真实ClawBot管理器配合模拟微信传输、两个模拟原生子智能体的集成测试。没有通过本次测试发送真实微信消息或调用付费模型；实际微信收发仍需账号侧验收。
+
+## 0.18.15：模型用量面板与会话 Token
+
+- 设置新增 Token 用量：按供应商/模型汇总输入、输出、累计 Token、请求数、缓存读取及失败/取消，按用量排序并用占比条直观展示。
+- 会话输入区下方显示当前会话累计 Token，不分模型；每5秒刷新，切换会话清除旧值，隐藏窗口停止轮询，离开组件取消请求。
+- 累计消耗与上下文占用分开；缺失/部分上报标记未知或已知累计，不把未报告的消耗算成零，按DSH非缓存输入、缓存读取/写入、输出各计一次。旧本机用量文件兼容，无需重置。
+- 复用已有台账与原生日志；会话累计仅包括本会话已记录回复，不补算子会话及未记入日志的辅助调用。设置汇总是插件加载后观测，并非供应商账单。
+
+127项回归通过。公开包不含私人角色、语音、桌宠或用量记录。
+

@@ -1,4 +1,4 @@
-# Release 0.18.14: native ClawBot teams and sanitized failure reports.
+# Release 0.18.15: model usage dashboard and session token totals.
 name: Publish audited release
 on:
   workflow_dispatch:

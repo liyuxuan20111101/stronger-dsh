@@ -1,6 +1,6 @@
 {
   "name": "dsh-ui-stronger",
-  "version": "0.18.14",
+  "version": "0.18.15",
   "description": "DeepSeek Harness 界面、动效、技能、知识库、人设与执行前安全审查增强。",
   "type": "module",
   "main": "lib/index.js",
@@ -56,11 +56,11 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liyuxuan20111101/stronger-dsh.git"
+    "url": "git+https://github.com/nothurry/stronger-dsh.git"
   },
-  "homepage": "https://github.com/liyuxuan20111101/stronger-dsh#readme",
+  "homepage": "https://github.com/nothurry/stronger-dsh#readme",
   "bugs": {
-    "url": "https://github.com/liyuxuan20111101/stronger-dsh/issues"
+    "url": "https://github.com/nothurry/stronger-dsh/issues"
   },
   "devDependencies": {
     "react": "18.3.1",
