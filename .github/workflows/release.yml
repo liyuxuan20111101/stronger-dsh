@@ -1,4 +1,4 @@
-# Release 0.18.16: owner-scoped WeChat controls and local conversation imports.
+# Release 0.18.17: direct archive controls and WeChat model settings.
 name: Publish audited release
 on:
   workflow_dispatch:

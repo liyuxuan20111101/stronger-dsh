@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.16/dsh-ui-stronger-0.18.16.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.17/dsh-ui-stronger-0.18.17.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 132 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 134 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/nothurry/stronger-dsh/issues).
 
@@ -184,3 +184,11 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 导入并发保存串行化、内容哈希去重，限制单文件8MB及本机总量。所有导入内容仅在本机；不自动扫描其他Agent目录，也不自动发送全文到模型。
 
 132项回归通过，包含模型命令路由、账号隔离、归档恢复、逻辑删除确认及导入格式/分页/并发检查。微信控制使用模拟传输验收，尚未实测真实微信收发。
+
+## 0.18.17：归档与微信模型直接操作
+
+- 会话列表上方直接切换「对话 / 已归档」。显示原生每行归档/恢复按钮，不新增第二套归档逻辑；运行任务仍使用DSH原生确认与恢复机制。
+- 微信设置页直接选择供应商/模型并应用，配置持久化供新微信会话使用；有当前归属且在允许工作区内的微信会话时立即应用。忙碌会话拒绝切换，停用/不可用模型拒绝保存。
+- 模型切换复用DSH原生接口；应用已有会话会依宿主规则同步部署默认模型。命令控制保留为补充。
+
+134项回归通过。公开包不含私人语音、桌宠、人设、知识、会话或模型配置。
