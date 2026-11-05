@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.15/dsh-ui-stronger-0.18.15.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.16/dsh-ui-stronger-0.18.16.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 127 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 132 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/nothurry/stronger-dsh/issues).
 
@@ -175,3 +175,12 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 
 127项回归通过。公开包不含私人角色、语音、桌宠或用量记录。
 
+
+## 0.18.16：微信控制与外部对话导入
+
+- 微信 /help 显示控制说明；/model 或 /models 查看模型，/model 序号或provider/model切换（同时影响DSH默认模型）。
+- /sessions 列表，/switch 会话ID切换，/archive 会话ID归档，/restore 会话ID恢复。/delete 会话ID生成60秒确认码，/confirm 确认后归档并移出微信列表；DSH原记录保留，不是物理删除。仅管理绑定本人、允许工作区内的微信会话，忙碌时阻止变更。
+- 设置新增「导入对话」：Codex JSONL、Claude Code JSONL、通用 messages JSON，预览确认、本机保存、分页查看及删除确认；可将参考页最多3500字放入草稿。只迁移用户/助手文字，不迁移工具执行、思考、附件或权限。
+- 导入并发保存串行化、内容哈希去重，限制单文件8MB及本机总量。所有导入内容仅在本机；不自动扫描其他Agent目录，也不自动发送全文到模型。
+
+132项回归通过，包含模型命令路由、账号隔离、归档恢复、逻辑删除确认及导入格式/分页/并发检查。微信控制使用模拟传输验收，尚未实测真实微信收发。

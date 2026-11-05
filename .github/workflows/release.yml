@@ -1,4 +1,4 @@
-# Release 0.18.15: model usage dashboard and session token totals.
+# Release 0.18.16: owner-scoped WeChat controls and local conversation imports.
 name: Publish audited release
 on:
   workflow_dispatch:
