@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.18/dsh-ui-stronger-0.18.18.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.19/dsh-ui-stronger-0.18.19.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 138 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 152 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/nothurry/stronger-dsh/issues).
 
@@ -203,3 +203,15 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 
 138项回归通过。公开包不含私人资源或会话配置。
 
+
+## 0.18.19：会话级自主协作与批量分工
+
+- 会话顶部「协作」可设置是否允许当前模型自主启动子智能体，新会话默认关闭。保留自定义主/子角色及各自模型与技能；模型工具不能修改用户开关。关闭后不再新派发，运行中的任务可单独停止。
+- dispatch 一次提交最多8个有明确职责、验收、依赖和独占相对路径的任务。并行上限1—4，任务预算按每次直接用户请求计算，工具消息不重置。独立任务并发启动，依赖或声明路径冲突排队，失败阻断后继，不自动重试。
+- 新增事件驱动 wait，减少模型重复轮询；报告和主角色核验统一依据列表。任务结束与验收分开展示，汇总只返回有界结果，不重复整份角色指令或父会话。
+- 同一任务家族的消息可选通过原生服务唤醒直接父/子，有限额、幂等与不明投递保护。默认仍只存收件箱；不扩展工作区、工具或审批权限。
+- 适配DSH 0.2.2的子任务内容块和中断接口。原生公开工具的已知派发入口及可识别别名遵循会话开关；不能拦截其他插件绕过公开工具自行调用的私有服务。独占路径是调度声明，不替代文件系统沙箱。
+
+152项回归通过。公开包不含私人资源或会话设置。
+
+设计参考：[DeepSeek Super-agent任务域](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/main/docs/001-domain.md)、[Grok Workflows](https://x.ai/news/workflows)。仅参考职责分离、阶段核验与精简交接，不安装它们的运行环境。

@@ -1,4 +1,4 @@
-# Release 0.18.18: deleted conversation menu and WeChat reasoning controls.
+# Release 0.18.19: session-scoped collaboration and bounded task scheduling.
 name: Publish audited release
 on:
   workflow_dispatch:
