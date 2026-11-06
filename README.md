@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.17/dsh-ui-stronger-0.18.17.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.18/dsh-ui-stronger-0.18.18.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -80,7 +80,7 @@ node lib/check-public.js
 npm pack --ignore-scripts
 ```
 
-当前 134 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
+当前 138 项回归覆盖范围包括工作区/通道隔离、原文分页、审批失效、技能管理、原生适配协议与动效调度。隔离 DSH 和本机合成模型验证过协作链路及界面；这不等于真实模型质量、真实微信收发、多月记忆或付费 token/缓存基准。发布包使用明确的 20 文件白名单与归档逐文件核对。
 
 Source and releases contain code and synthetic tests only. MIT license. Issues: [stronger-dsh/issues](https://github.com/nothurry/stronger-dsh/issues).
 
@@ -192,3 +192,14 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 模型切换复用DSH原生接口；应用已有会话会依宿主规则同步部署默认模型。命令控制保留为补充。
 
 134项回归通过。公开包不含私人语音、桌宠、人设、知识、会话或模型配置。
+
+## 0.18.18：删除菜单、微信思考强度与选择器响应
+
+- 已归档会话的原生菜单新增「删除会话」，确认后从列表移除且跨重启保留。本机原始日志保留，停用插件可能重新显示；这不是物理擦除。运行中会话拒绝删除，关联微信当前会话映射解除，本插件跨会话检索跳过已删除会话。
+- 微信模型设置新增思考强度，按原生模型目录实际支持的档位显示、验证并持久化。新建微信会话把模型与强度一起提交原生接口。
+- 插件选择框整框可触发原生picker，保留键盘选择；对话模型按钮子元素不再单独截获点击。
+- 兼容DSH 0.2.2原生连接认证入口，修复插件接口405和归档菜单状态订阅，保留旧版原生RPC兼容分支。
+- UI模型目录复用并发请求，缓存30秒成功结果；失败不写缓存，供应商/设置/凭据变更后失效。首次冷加载仍取决于提供商。
+
+138项回归通过。公开包不含私人资源或会话配置。
+
