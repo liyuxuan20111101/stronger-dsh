@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.24/dsh-ui-stronger-0.18.24.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.25/dsh-ui-stronger-0.18.25.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -254,7 +254,7 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 
 生产组件与宿主原始侧栏样式检查覆盖17个扩展页面、导入和用量页、深色及420px窄屏。正式原生桌面鼠标回归仍未完成。
 
-## 0.18.24
+## 0.18.25
 
 - 扩展的上下文与模型页可选择按模型容量百分比或固定Token数触发自动压缩。百分比支持50%–90%的自定义数值，固定值支持4096–16000000 tokens。选择自动管理、填写阈值并应用即可。
 - 显示当前实际模型下的已保存生效阈值，按输出预留和安全余量调整。固定阈值在每次实际模型请求时按路由模型重新换算，不使用其他模型的旧容量。缺少容量时明确显示待定，继续保留宿主溢出恢复。
@@ -262,3 +262,14 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 旧设置保持原有自动选择，旧格式首次写入前在本机保留带内容摘要的原配置备份。新增阈值字段由当前版本读取，回退旧版时可用该备份恢复设置。
 
 上下文占用采用宿主估算，摘要调用会产生模型用量。压缩可能丢失摘要细节，精确内容仍可按需读取本机会话原文。
+
+
+## 0.18.25 插件适配
+
+- 保留其他插件传入模型目录的扩展参数及同步返回行为，参数化查询不共用默认目录缓存。
+- 技能服务重载时各作用域独立注销注册，避免旧服务清理误删新服务技能。模型设置反馈保留原条目完整元数据。
+- 快捷键尊重已处理按键、输入法和前台模态框；折叠动效限定在已适配区域。
+- 修复子智能体状态接口404导致开关禁用，兼容已存在的协作视图，写入仍由后端验证会话和权限。
+- PTC状态标签可打开原生智能体预设设置。已开始的会话由DSH保留原模式，新会话开始前选择模式。
+
+180项回归通过。隔离生产组件点击测试验证开关保存及预设入口，未对正式用户会话执行开关写入，正式桌面重启后的完整点击回归仍未完成。

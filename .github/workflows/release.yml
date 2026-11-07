@@ -1,4 +1,4 @@
-# Release 0.18.24: configurable automatic context compression thresholds.
+# Release 0.18.25: configurable automatic context compression thresholds.
 name: Publish audited release
 on:
   workflow_dispatch:
@@ -31,4 +31,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           version=$(node -p 'JSON.parse(require("fs").readFileSync("package.json")).version')
-          gh release create "v$version" "dist/dsh-ui-stronger-$version.tgz" "dist/dsh-ui-stronger-$version.sha256" --target "$GITHUB_SHA" --title "Stronger DSH $version" --notes "Configurable percentage or fixed-token automatic context compression, routed model budgets and preserved original logs. Public source contains no private character, voice model, audio or user data. See README for discovery source and safety limitations."
+          gh release create "v$version" "dist/dsh-ui-stronger-$version.tgz" "dist/dsh-ui-stronger-$version.sha256" --target "$GITHUB_SHA" --title "Stronger DSH $version" --notes "Plugin coexistence, preserved model extension calls, isolated skill lifecycle and session control compatibility. Public source contains no private character, voice model, audio or user data. See README for discovery source and safety limitations."
