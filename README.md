@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.23/dsh-ui-stronger-0.18.23.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.24/dsh-ui-stronger-0.18.24.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -253,3 +253,12 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 修复微信模型选择器在首次空状态下读取思考强度导致的页面崩溃。
 
 生产组件与宿主原始侧栏样式检查覆盖17个扩展页面、导入和用量页、深色及420px窄屏。正式原生桌面鼠标回归仍未完成。
+
+## 0.18.24
+
+- 扩展的上下文与模型页可选择按模型容量百分比或固定Token数触发自动压缩。百分比支持50%–90%的自定义数值，固定值支持4096–16000000 tokens。选择自动管理、填写阈值并应用即可。
+- 显示当前实际模型下的已保存生效阈值，按输出预留和安全余量调整。固定阈值在每次实际模型请求时按路由模型重新换算，不使用其他模型的旧容量。缺少容量时明确显示待定，继续保留宿主溢出恢复。
+- 低阈值同步收紧保留原文和摘要预算，保持原生工具配对、缓存感知摘要、原始日志及安全规则。手动压缩、仅手动和跟随DSH模式保留。
+- 旧设置保持原有自动选择，旧格式首次写入前在本机保留带内容摘要的原配置备份。新增阈值字段由当前版本读取，回退旧版时可用该备份恢复设置。
+
+上下文占用采用宿主估算，摘要调用会产生模型用量。压缩可能丢失摘要细节，精确内容仍可按需读取本机会话原文。
