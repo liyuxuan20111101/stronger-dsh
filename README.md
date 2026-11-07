@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.22/dsh-ui-stronger-0.18.22.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.23/dsh-ui-stronger-0.18.23.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -243,3 +243,13 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 快照采用512项有界LRU，降低活跃旧会话被闲置会话挤出后重建前缀的概率。常驻记忆2200字符、人设1375字符，技能正文与历史按需加载。
 
 冻结前缀仅覆盖本插件管理的内容。模型、宿主和其他插件的提示词变化及供应商缓存策略仍会影响实际缓存命中。压缩摘要存在信息损耗，精确细节通过原始档案补读。不会自动物理删除真实会话。
+
+## 0.18.23
+
+- 背景、对话导入与思考工作台备份共用文件选择控件，统一字号、间距、状态与键盘焦点。背景参数采用细线滑块，播放/存储说明可展开。
+- 修正无效字体声明，统一插件页表单、按钮与标题栏对齐。新会话采用对称布局，覆盖宿主的容器查询宽度与悬停遮罩；收起侧栏时保留新建图标。
+- 会话顶部直接切换是否允许调用子智能体，按会话保存。协作面板保留角色、预算、并行数与任务进度，移除重复开关。默认关闭，模型不能自行修改此设置，子角色不可递归委派。关闭阻止新派发并取消排队任务，运行中任务可在协作面板单独停止。
+- 新增轻量的 owner-only 协作状态查询，避免顶部为一个开关读取整套角色正文；防止迟到状态覆盖新设置。
+- 修复微信模型选择器在首次空状态下读取思考强度导致的页面崩溃。
+
+生产组件与宿主原始侧栏样式检查覆盖17个扩展页面、导入和用量页、深色及420px窄屏。正式原生桌面鼠标回归仍未完成。
