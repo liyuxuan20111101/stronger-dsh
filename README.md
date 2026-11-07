@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.20/dsh-ui-stronger-0.18.20.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.21/dsh-ui-stronger-0.18.21.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -225,3 +225,11 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 更新统一几何标记，保留黑白灰与淡紫。
 
 158 项回归通过。供应商、网络或其他插件故障仍可能造成延迟；缓存不保证所有首次读取瞬时完成。
+
+## 0.18.21
+
+- 底部统计按内容分配宽度，窄窗口换行显示完整轮次、速度、Token 与缓存读数。
+- 技能页分组显示内置与本机导入，支持按名称或用途搜索、独立开关及刷新目录。刷新后原生技能目录同步更新，保留此前的开关选择。导入文件异常时显示错误并停止提供异常目录的技能。
+- 技能摘要保留来源分类，更新后旧分页游标失效。模型按需通过原生 skill 工具读取正文。
+
+160 项回归通过。布局在 420px 测试视口检查，统计文字完整并可换行。设计借鉴 [dsh-ops 的按需披露与独立控制思路](https://github.com/T-Auto/dsh-ops/blob/main/README.zh.md)。
