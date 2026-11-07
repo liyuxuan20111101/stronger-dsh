@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.19/dsh-ui-stronger-0.18.19.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.20/dsh-ui-stronger-0.18.20.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -53,8 +53,8 @@ https://raw.githubusercontent.com/nothurry/stronger-dsh/main/.market/index.json
 - `/` 或模型按需使用已启用的原生技能；技能页支持开关、自建、编辑、停用、恢复和删除。模型从已验证的重复/纠错流程提出草稿，用户确认后才能启用。
 - 按需技能包括任务交接、技能固化、资料检索、谨慎修改、角色协作、可信核验、时间与来源整理等。技能内容不能扩大权限。
 - 知识库仅索引用户主动接入的本机 Markdown/TXT/CSV/JSON 文件夹；命中附文件和行号。模型调用时，选中的片段会发送给当前提供商。不要接入密钥目录。
-- 主/子角色可配置名称、职责、技能名和现有模型。`workspace_team` 使用 DSH 原生子会话，任务/角色快照本机持久化，可设验收要求、前置依赖和幂等 key，每父会话最多两个活跃子任务。
-- 协作页展示真实任务状态和消息回执。`message/inbox/ack` 支持同一父任务内的本机消息；消息按需读取，不自动唤醒空闲模型。依赖门禁核对前置任务正常结束，结果验收仍由主智能体负责，不是无人值守 DAG 调度器。
+- 主/子角色可配置名称、职责、技能名和现有模型。`workspace_team` 使用 DSH 原生子会话，任务/角色快照本机持久化，可设验收要求、前置依赖和幂等 key，每父会话可设 1—4 个并行子任务。
+- 协作页展示真实任务状态和消息回执。`message/inbox/ack` 支持同一父任务内的本机消息；消息按需读取，默认不唤醒，显式 wake 可通知直接父/子；依赖门禁核对前置任务正常结束，结果验收仍由主智能体负责。
 - `workspace_world time` 返回主机时间与 IANA 时区，不冒充网络授时；`evidence` 将调用方提供的来源整理为 JSON/摘录哈希，并标明未独立核验。它本身不搜索或抓网页，`/world-research` 引导复用 DSH 已有联网工具。X/YouTube 仍受真实访问权限与字幕可用性限制。
 
 ## 微信、语音与桌宠
@@ -215,3 +215,13 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 152项回归通过。公开包不含私人资源或会话设置。
 
 设计参考：[DeepSeek Super-agent任务域](https://github.com/deepseek-ai/dsh-superagent-prototype/blob/main/docs/001-domain.md)、[Grok Workflows](https://x.ai/news/workflows)。仅参考职责分离、阶段核验与精简交接，不安装它们的运行环境。
+
+## 0.18.20：桌面接口修复与控件整理
+
+- DSH 0.2.2 使用宿主统一 `/api` 精确 Fetch 路由，兼容桌面与 Web 通道，保留宿主 owner 权限校验。修复扩展、微信、用量与已归档会话删除的桌面 HTTP 405；旧 Web 宿主仅在明确 404/405 时兼容原通道，不因超时重试写操作。
+- 会话行移除重复归档/恢复快捷项，保留原生菜单；删除项增加线性图标，确认框使用 DSH 原生 Modal 与 Button。删除仍是插件列表隐藏，原始日志保留。
+- 选择框恢复原生单击行为。扩展不再重复列出“开始使用”或“模型与供应商”，供应商编辑保留原生设置入口。
+- 目录读取不再逐模型串行探测能力；成功供应商短缓存、并发读取合并，思考强度按选中的模型查询。单一慢适配器不再挡住其他可用目录。供应商设置等待时显示真实加载与重试反馈，不再空白静候。
+- 更新统一几何标记，保留黑白灰与淡紫。
+
+158 项回归通过。供应商、网络或其他插件故障仍可能造成延迟；缓存不保证所有首次读取瞬时完成。
