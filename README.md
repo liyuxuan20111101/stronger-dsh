@@ -15,7 +15,7 @@ dsh plugin --profile desktop add <归档的绝对路径>
 也可直接安装当前预构建包：
 
 ```powershell
-dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.21/dsh-ui-stronger-0.18.21.tgz
+dsh plugin --profile desktop add https://github.com/nothurry/stronger-dsh/releases/download/v0.18.22/dsh-ui-stronger-0.18.22.tgz
 ```
 
 安装后正常重启 DSH。依赖仍从 npm 解析，并非完全离线。已有本机设置保留。
@@ -233,3 +233,13 @@ Source and releases contain code and synthetic tests only. MIT license. Issues: 
 - 技能摘要保留来源分类，更新后旧分页游标失效。模型按需通过原生 skill 工具读取正文。
 
 160 项回归通过。布局在 420px 测试视口检查，统计文字完整并可换行。设计借鉴 [dsh-ops 的按需披露与独立控制思路](https://github.com/T-Auto/dsh-ops/blob/main/README.zh.md)。
+
+## 0.18.22
+
+- 关闭界面增强后保留扩展、协作与恢复开关，功能管理独立于全局主题。
+- 导入对话增加文件预览、档案列表、分页阅读、取消与明确状态提示。
+- 记忆与交接采用持久化会话快照。其他会话新增记忆、更新检查点或保存微信配置不会自动重写当前前缀。仅成功压缩、手动刷新和资料权限撤销等必要边界刷新。
+- 重要记忆优先常驻，普通记忆按预算载入。临时记忆在30天后退出后续快照热层，仍可按需查原文。旧记录默认普通，既有会话原文保留。分级调整位于扩展的记忆编辑器。
+- 快照采用512项有界LRU，降低活跃旧会话被闲置会话挤出后重建前缀的概率。常驻记忆2200字符、人设1375字符，技能正文与历史按需加载。
+
+冻结前缀仅覆盖本插件管理的内容。模型、宿主和其他插件的提示词变化及供应商缓存策略仍会影响实际缓存命中。压缩摘要存在信息损耗，精确细节通过原始档案补读。不会自动物理删除真实会话。
